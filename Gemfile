@@ -3,8 +3,17 @@ ruby '1.9.3'
 
 gem 'rails', '3.2.14'
 
+# Database
 gem 'mysql2'
 
+# A better IRB for Rails
+gem 'pry-rails'
+
+# Authentication
+gem 'figaro'
+gem 'devise'
+
+# Charts
 gem 'morrisjs-rails'
 gem 'raphael-rails'
 
