@@ -3,11 +3,11 @@ window.ChartPlotter = {
   Collections: {},
   Views: {},
   Routers: {},
-  initialize: function() {
-    alert('Hello from Backbone!');
+
+  initialize: function($rootEl, chartsData) {
+    var charts = new ChartPlotter.Collections.Charts(chartsData);
+
+    new ChartPlotter.Routers.ChartsRouter($rootEl, charts);
+    Backbone.history.start();
   }
 };
-
-$(document).ready(function(){
-  ChartPlotter.initialize();
-});

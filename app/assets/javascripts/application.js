@@ -16,6 +16,7 @@
 //= require morris
 //= require underscore
 //= require backbone
+//= require_tree ../../../vendor/assets/javascripts
 //= require chart_plotter
 //= require_tree ../templates
 //= require_tree ./models

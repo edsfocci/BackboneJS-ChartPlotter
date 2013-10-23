@@ -14,7 +14,7 @@ development:
   reconnect: false
   database: ChartPlotter_development
   pool: 5
-  username: developer
+  username: root
   password:
   socket: /var/run/mysqld/mysqld.sock
 
@@ -27,6 +27,6 @@ test:
   reconnect: false
   database: ChartPlotter_test
   pool: 5
-  username: developer
+  username: root
   password:
   socket: /var/run/mysqld/mysqld.sock

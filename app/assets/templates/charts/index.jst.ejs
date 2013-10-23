@@ -1,0 +1,11 @@
+<a href='#/charts/new'>
+  New Chart
+</a>
+
+<ul>
+  <% charts.each(function (chart) { %>
+    <li><a href='#/charts/<%= chart.escape('id') %>'>
+      <%= chart.escape('title') %>
+    </a></li>
+  <% }) %>
+</ul>

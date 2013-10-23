@@ -1,0 +1,13 @@
+<div id='content'>
+  <script type='application/json' id='bootstrapped_charts_json'>
+    <%= current_user.charts.to_json.html_safe %>
+  </script>
+
+  <script type='application/javascript'>
+    $(function () {
+      var chartsData = JSON.parse($('#bootstrapped_charts_json').html());
+
+      window.ChartPlotter.initialize($('#content'), chartsData);
+    });
+  </script>
+</div>

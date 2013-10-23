@@ -1,0 +1,72 @@
+<form id='charts_new'>
+  <label for='chart_title'>Title</label>
+  <input type='text' id='chart_title' name='chart[title]'
+                                          value='<%= chart.escape('title') %>'>
+
+  <label for='chart_x_label'>X-Axis Label</label>
+  <input type='text' id='chart_x_label' name='chart[x_label]'
+                                        value='<%= chart.escape('x_label') %>'>
+
+  <label for='chart_y_label'>Y-Axis Label</label>
+  <input type='text' id='chart_y_label' name='chart[y_label]'
+                                        value='<%= chart.escape('y_label') %>'>
+
+  <div id="line_chart"style="height: 250px; width: 960px;"></div>
+
+  <table>
+    <tr>
+      <th></th>
+      <th><label for='point_set_label'>Point Set Label</label></th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>
+        <input type='text' id='point_set_label'
+                                              name='point_set[point_set_label]'
+                            value='<%= point_set.escape('point_set_label') %>'>
+      </th>
+    </tr>
+    <tr>
+      <th>x_point</th>
+      <th>y_point</th>
+    </tr>
+    <tr>
+      <th>
+        <input type='text' id='point_x_coord' name='point[x_coord]'
+                                        value='<%= point.escape('x_coord') %>'>
+      </th>
+      <th>
+        <input type='text' id='point_y_coord' name='point[y_coord]'
+                                        value='<%= point.escape('y_coord') %>'>
+      </th>
+    </tr>
+  </table>
+  <button class='submit'>Save Chart</button>
+</form>
+
+<script type='application/json' id='hugz'>
+  <%= '[{"x":"0","value":18},{"x":"22","value":20},{"x":"99","value":21}]' %>
+</script>
+
+<script type='application/javascript'>
+  var a = JSON.parse($('#hugz').html());
+  b = [];
+  a.forEach(function (x) {
+    x['x'] = parseInt(x['x']) + 1900;
+  });
+  console.log(a);
+  new Morris.Line({
+
+    element: 'line_chart',
+
+    data: a,
+
+    xkey: 'x',
+
+    ykeys: ['value'],
+
+    labels: ['Value'],
+
+    dateFormat: function (x) { return (new Date(x, 1).getFullYear() - 1900).toString(); }
+  });
+</script>

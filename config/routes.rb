@@ -1,4 +1,12 @@
 ChartPlotter::Application.routes.draw do
+  devise_for :users
+
+  resources :charts
+  resources :point_sets
+  resources :points
+
+  root to: 'charts#index'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -20,7 +28,7 @@ ChartPlotter::Application.routes.draw do
   #       post 'toggle'
   #     end
   #
-  #     collection do
+  #     colroot :to => 'welcome#index'lection do
   #       get 'sold'
   #     end
   #   end
