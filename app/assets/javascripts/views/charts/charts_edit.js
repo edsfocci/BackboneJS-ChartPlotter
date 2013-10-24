@@ -18,6 +18,8 @@ ChartPlotter.Views.ChartsEdit = Backbone.View.extend({
 
         var point_set = new ChartPlotter.Models.PointSet(pointSetsData);
         var point = new ChartPlotter.Models.Point(pointsData);
+        console.log(point);
+        console.log(point.toString());
 
         that.$el.html(that.template({
           chart: that.model,
@@ -65,7 +67,8 @@ ChartPlotter.Views.ChartsEdit = Backbone.View.extend({
       success: function () {
 
         var id = that.model.escape('id');
-        Backbone.history.navigate("#/charts/" + id);
+        Backbone.history.fragment = null;
+        Backbone.history.navigate("#/charts/" + id, true);
       }
     });
   }
