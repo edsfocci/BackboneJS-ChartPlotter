@@ -13,6 +13,10 @@
 
   <div id="line_chart"style="height: 250px; width: 960px;"></div>
 
+  <input type=hidden name='point_set[id]'
+                                        value ='<%= point_set.escape('id') %>'>
+  <input type=hidden name='point[id]' value ='<%= point.escape('id') %>'>
+
   <table>
     <tr>
       <th></th>
@@ -32,11 +36,11 @@
     </tr>
     <tr>
       <th>
-        <input type='text' id='point_x_coord' name='point[x_coord]'
+        <input type='text' id='point_x_coord' name='point[x_coord]'1
                                         value='<%= point.escape('x_coord') %>'>
       </th>
       <th>
-        <input type='text' id='point_y_coord' name='point[y_coord]'
+        <input type='text' id='point_y_coord' name='point[y_coord]'2
                                         value='<%= point.escape('y_coord') %>'>
       </th>
     </tr>

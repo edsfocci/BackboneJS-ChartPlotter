@@ -2,10 +2,23 @@ class ChartsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
+    respond_to do |format|
+      format.html { render :index }
+      format.json {
+        chart = Chart.find(params[:id])
+
+        @point_sets = chart.point_sets.includes(:points)
+        # @points = @point_sets.map { |point_set| point_set.points }
+        @points = @point_sets.first.points
+
+        render :json => { point_sets: @point_sets.first, points: @points.first }
+      }
+    end
   end
 
   def create
     chart = Chart.new(params[:chart])
+    chart.user_id = current_user.id
 
     if chart.save
       render json: chart

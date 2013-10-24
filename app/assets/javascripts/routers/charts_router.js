@@ -23,13 +23,15 @@ ChartPlotter.Routers.ChartsRouter = Backbone.Router.extend({
   },
 
   new: function () {
-    var chartsNew = new ChartPlotter.Views.ChartsNew;
+    var chartsNew = new ChartPlotter.Views.ChartsNew({
+      collection: this.charts
+    });
     this.$rootEl.html(chartsNew.render().$el);
   },
 
   edit: function (id) {
     var chartsEdit = new ChartPlotter.Views.ChartsEdit({
-      chart: this.charts.get(id)
+      model: this.charts.get(id)
     });
     this.$rootEl.html(chartsEdit.render().$el);
   }

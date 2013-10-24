@@ -3,10 +3,30 @@ ChartPlotter.Views.ChartsEdit = Backbone.View.extend({
     'submit form': 'submit'
   },
 
-  template: JST['charts/new'],
+  template: JST['charts/edit'],
 
   render: function () {
-    this.$el.html(this.template);
+    var that = this;
+
+    $.ajax({
+      url: '/charts.json',
+      type: 'GET',
+      data: { 'id': this.model.escape('id') },
+      success: function (combinedData) {
+        var pointSetsData = combinedData['point_sets'];
+        var pointsData = combinedData['points'];
+
+        var point_set = new ChartPlotter.Models.PointSet(pointSetsData);
+        var point = new ChartPlotter.Models.Point(pointsData);
+
+        that.$el.html(that.template({
+          chart: that.model,
+          point_set: point_set,
+          point: point
+        }));
+      }
+    });
+
     return this;
   },
 
@@ -16,37 +36,35 @@ ChartPlotter.Views.ChartsEdit = Backbone.View.extend({
 
     var formData = $(event.currentTarget).serializeJSON();
 
-    var chart = new ChartPlotter.Models.Chart(formData.chart);
+    this.model.set(formData.chart);
 
-    chart.save(chart.attributes, {
+    this.model.save(this.model.attributes, {
       success: function () {
-        that.charts.add(chart);
-        formData.point_set.chart_id = chart.escape('id');
         that.save_point_set(formData);
       }
     });
   },
 
   save_point_set: function (formData) {
+    var that = this;
+
     var point_set = new ChartPlotter.Models.PointSet(formData.point_set);
 
     point_set.save(point_set.attributes, {
       success: function () {
-        that.point_sets.add(point_set);
-        formData.point.point_set_id = point_set.escape('id');
         that.save_point(formData);
       }
     });
   },
 
   save_point: function (formData) {
-    var point = new ChartPlotter.Models.Points(formData.point);
+    var that = this;
+    var point = new ChartPlotter.Models.Point(formData.point);
 
     point.save(point.attributes, {
       success: function () {
-        that.points.add(point);
 
-        var id = formData.point_set.chart_id;
+        var id = that.model.escape('id');
         Backbone.history.navigate("#/charts/" + id);
       }
     });
